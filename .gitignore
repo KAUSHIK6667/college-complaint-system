@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.next-prod/
+out/
+.env
+.env.local
+client/.env.local
+server/.env
+coverage/
+*.log

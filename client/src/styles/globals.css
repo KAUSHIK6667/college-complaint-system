@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --ink: #17211f; --cream: #f8f6ef; --mint: #b9f5d0; --coral: #ff725e; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; }
+h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; }
+button, input { font: inherit; }

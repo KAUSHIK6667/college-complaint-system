@@ -1,0 +1,10 @@
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useAuthStore } from '../store/authStore';
+
+export default function Login() { const router = useRouter(); const login = useAuthStore((state) => state.login); const [form, setForm] = useState({ email: '', password: '' }); const [error, setError] = useState('');
+  async function submit(event) { event.preventDefault(); setError(''); try { await login(form); router.push('/dashboard'); } catch (requestError) { setError(requestError.response?.data?.message || 'Unable to sign in.'); } }
+  return <AuthLayout title="Welcome back" subtitle="See what is moving on campus."><form onSubmit={submit} className="space-y-5"><Field label="College email" type="email" value={form.email} onChange={(email) => setForm({ ...form, email })} /><Field label="Password" type="password" value={form.password} onChange={(password) => setForm({ ...form, password })} />{error && <p className="text-sm text-coral">{error}</p>}<button className="w-full rounded-xl bg-ink py-3 font-bold text-cream">Sign in</button></form><p className="mt-6 text-center text-sm text-ink/60">New here? <Link className="font-bold text-ink" href="/register">Create a student account</Link></p></AuthLayout>; }
+function Field({ label, type, value, onChange }) { return <label className="block text-sm font-bold">{label}<input required type={type} value={value} onChange={(event) => onChange(event.target.value)} className="mt-2 w-full rounded-xl border border-ink/15 bg-white px-4 py-3 outline-none focus:border-coral" /></label>; }
+function AuthLayout({ title, subtitle, children }) { return <main className="grid min-h-screen place-items-center px-6 py-12"><div className="w-full max-w-md"><Link href="/" className="font-bold">Edu<span className="text-coral">Fix</span></Link><h1 className="mt-16 text-5xl font-bold">{title}</h1><p className="mt-3 text-ink/60">{subtitle}</p><div className="mt-8 rounded-3xl bg-white p-7 shadow-sm">{children}</div></div></main>; }

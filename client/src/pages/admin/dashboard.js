@@ -1,0 +1,6 @@
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { api } from '../../services/api';
+
+export default function AdminDashboard() { const [stats, setStats] = useState(null); useEffect(() => { api.get('/admin/stats').then(({ data }) => setStats(data)); }, []); return <main className="min-h-screen px-6 py-10"><div className="mx-auto max-w-6xl"><Link href="/dashboard" className="text-sm font-bold">← Home</Link><p className="mt-14 text-sm font-bold uppercase tracking-widest text-coral">Operations</p><h1 className="mt-3 text-5xl font-bold">Campus pulse</h1>{stats ? <div className="mt-10 grid gap-4 md:grid-cols-4"><Stat label="Open tickets" value={stats.openTickets} /><Stat label="Total tickets" value={stats.totalTickets} /><Stat label="Departments" value={stats.departments} /><Stat label="Users" value={stats.users} /></div> : <p className="mt-10">Loading metrics...</p>}<Link href="/admin/departments" className="mt-10 inline-block rounded-full bg-coral px-5 py-3 font-bold">Manage departments</Link></div></main>; }
+function Stat({ label, value }) { return <div className="rounded-2xl bg-white p-6"><p className="text-sm text-ink/60">{label}</p><p className="mt-3 text-4xl font-bold">{value}</p></div>; }
