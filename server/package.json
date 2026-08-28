@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "build": "node --check src/server.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
