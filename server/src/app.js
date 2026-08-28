@@ -11,7 +11,8 @@ export const app = express();
 app.use(helmet());
 app.use(cors({ origin: (origin, callback) => {
 	const isLocalDevelopment = env.nodeEnv !== 'production' && origin && /^https?:\/\/localhost:\d+$/.test(origin);
-	if (!origin || origin === env.clientUrl || isLocalDevelopment) return callback(null, true);
+	const isDeployedFrontend = origin === 'https://client-gbfy72ra5-kaushik6667.vercel.app';
+	if (!origin || origin === env.clientUrl || isLocalDevelopment || isDeployedFrontend) return callback(null, true);
 	return callback(new Error('Origin is not allowed by CORS.'));
 } }));
 app.use(express.json({ limit: '1mb' }));
